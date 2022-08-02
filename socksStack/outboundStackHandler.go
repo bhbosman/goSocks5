@@ -1,4 +1,4 @@
-package internal
+package socksStack
 
 import (
 	"github.com/bhbosman/gocomms/RxHandlers"
@@ -6,32 +6,32 @@ import (
 	"github.com/bhbosman/goprotoextra"
 )
 
-type OutboundStackHandler struct {
+type outboundStackHandler struct {
 	errorState error
 	stackData  *data
 }
 
-func (self *OutboundStackHandler) GetAdditionalBytesIncoming() int {
+func (self *outboundStackHandler) GetAdditionalBytesIncoming() int {
 	return 0
 }
 
-func (self *OutboundStackHandler) GetAdditionalBytesSend() int {
+func (self *outboundStackHandler) GetAdditionalBytesSend() int {
 	return self.stackData.GetBytesSend()
 }
 
-func (self *OutboundStackHandler) ReadMessage(_ interface{}) error {
+func (self *outboundStackHandler) ReadMessage(_ interface{}) (interface{}, bool, error) {
+	return nil, false, nil
+}
+
+func (self *outboundStackHandler) Close() error {
 	return nil
 }
 
-func (self *OutboundStackHandler) Close() error {
-	return nil
-}
-
-func (self *OutboundStackHandler) OnError(err error) {
+func (self *outboundStackHandler) OnError(err error) {
 	self.errorState = err
 }
 
-func (self *OutboundStackHandler) NextReadWriterSize(
+func (self *outboundStackHandler) NextReadWriterSize(
 	rws goprotoextra.ReadWriterSize,
 	f func(rws goprotoextra.ReadWriterSize) error,
 	_ func(interface{}) error,
@@ -45,17 +45,17 @@ func (self *OutboundStackHandler) NextReadWriterSize(
 	return nil
 }
 
-func (self *OutboundStackHandler) OnComplete() {
+func (self *outboundStackHandler) OnComplete() {
 	if self.errorState == nil {
 		self.errorState = RxHandlers.RxHandlerComplete
 	}
 }
 
-func NewOutboundStackHandler(stackData *data) (RxHandlers.IRxNextStackHandler, error) {
+func newOutboundStackHandler(stackData *data) (RxHandlers.IRxNextStackHandler, error) {
 	if stackData == nil {
 		return nil, goerrors.InvalidParam
 	}
-	return &OutboundStackHandler{
+	return &outboundStackHandler{
 		errorState: nil,
 		stackData:  stackData,
 	}, nil

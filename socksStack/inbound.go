@@ -1,4 +1,4 @@
-package internal
+package socksStack
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func Inbound(
+func inbound(
 	ConnectionCancelFunc model.ConnectionCancelFunc,
 	logger *zap.Logger,
 	ctx context.Context,
@@ -29,41 +29,37 @@ func Inbound(
 				) (rxgo.Observable, error) {
 					if stackDataActual, ok := stackData.(*data); ok {
 						inBoundChannel := make(chan rxgo.Item)
-						inboundStackHandler := NewInboundStackHandler(stackDataActual)
+						inboundStackHandlerInstance := newInboundStackHandler(stackDataActual)
 
-						createSendData, createSendError, createComplete, err := RxHandlers.All(
+						handler, err := RxHandlers.All2(
 							goCommsDefinitions.Socks5,
 							model.StreamDirectionUnknown,
 							inBoundChannel,
 							logger,
 							ctx,
+							true,
 						)
 						if err != nil {
 							return nil, err
 						}
 
-						rxNextHandler, err := RxHandlers.NewRxNextHandler(
+						rxNextHandler, err := RxHandlers.NewRxNextHandler2(
 							goCommsDefinitions.Socks5,
 							ConnectionCancelFunc,
-							inboundStackHandler,
-							createSendData,
-							createSendError,
-							createComplete,
+							inboundStackHandlerInstance,
+							handler,
 							logger)
 						if err != nil {
 							return nil, err
 						}
 
-						_ = rxOverride.ForEach(
+						_ = rxOverride.ForEach2(
 							goCommsDefinitions.Socks5,
 							model.StreamDirectionUnknown,
 							obs,
 							ctx,
 							goFunctionCounter,
-							rxNextHandler.OnSendData,
-							rxNextHandler.OnError,
-							rxNextHandler.OnComplete,
-							false,
+							rxNextHandler,
 							opts...)
 
 						resultObs := rxgo.FromChannel(inBoundChannel, opts...)

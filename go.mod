@@ -3,31 +3,25 @@ module github.com/bhbosman/goSocks5
 go 1.18
 
 require (
-	github.com/bhbosman/goCommsDefinitions v0.0.0-20220628093721-7191a8828f7f
-	github.com/bhbosman/goCommsNetListener v0.0.0-20220611182354-46d10d89b8e1
-	github.com/bhbosman/goCommsSshListener v0.0.0-00010101000000-000000000000
-	github.com/bhbosman/goCommsStacks v0.0.0-20220701193851-2f07d2023eb2
-	github.com/bhbosman/goFxApp v0.0.0-20220621055337-d5d1bfa131ee
-	github.com/bhbosman/goMessages v0.0.0-20220701083921-8724d3c12872
-	github.com/bhbosman/gocommon v0.0.0-20220628091717-f03fe56d9feb
-	github.com/bhbosman/gocomms v0.0.0-20220628074707-e93417aaaed2
+	github.com/bhbosman/goCommsDefinitions v0.0.0-20220724214237-63eea03e3695
+	github.com/bhbosman/goCommsNetListener v0.0.0-20220712191421-bfbc514d3011
+	github.com/bhbosman/goFxApp v0.0.0-20220707083540-2141464f4f7c
+	github.com/bhbosman/gocommon v0.0.0-20220725200742-9cdc334065f3
+	github.com/bhbosman/gocomms v0.0.0-20220713064628-4df3e595ffd0
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf
+	github.com/bhbosman/gomessageblock v0.0.0-20220617132215-32f430d7de62
 	github.com/bhbosman/goprotoextra v0.0.2-0.20210817141206-117becbef7c7
 	github.com/cskr/pubsub v1.0.2
-	github.com/golang/protobuf v1.4.1
 	github.com/reactivex/rxgo/v2 v2.5.0
 	go.uber.org/fx v1.17.1
 	go.uber.org/zap v1.21.0
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2
-	google.golang.org/protobuf v1.25.0
 )
 
 require (
-	github.com/bhbosman/goConnectionManager v0.0.0-20220628055237-4a995b1ae47c // indirect
-	github.com/bhbosman/goFxAppManager v0.0.0-20220625173841-bbd050c3bfe2 // indirect
-	github.com/bhbosman/goUi v0.0.0-20220625174028-03193a90ee79 // indirect
-	github.com/bhbosman/gologging v0.0.0-20200921180328-d29fc55c00bc // indirect
-	github.com/bhbosman/gomessageblock v0.0.0-20210901070622-be36a3f8d303 // indirect
+	github.com/bhbosman/goConnectionManager v0.0.0-20220721070628-0f4b3c036d93 // indirect
+	github.com/bhbosman/goFxAppManager v0.0.0-20220713064906-f13252f1e610 // indirect
+	github.com/bhbosman/goUi v0.0.0-20220725200743-ddc6ed05f1d6 // indirect
 	github.com/cenkalti/backoff/v4 v4.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
@@ -46,7 +40,6 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/dig v1.14.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
@@ -87,3 +80,5 @@ replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
 replace github.com/rivo/tview => ../tview
 
 replace github.com/bhbosman/goprotoextra => ../goprotoextra
+
+replace github.com/cskr/pubsub => ../pubsub

@@ -1,4 +1,4 @@
-package internal
+package socksStack
 
 import (
 	"context"
@@ -7,10 +7,10 @@ import (
 	"github.com/bhbosman/gocommon/model"
 	common2 "github.com/bhbosman/gocomms/common"
 	"github.com/bhbosman/goerrors"
-	"github.com/bhbosman/goprotoextra"
+	"github.com/reactivex/rxgo/v2"
 )
 
-func CreateStackState(
+func createStackState(
 	ctx context.Context,
 	goFunctionCounter GoFunctionCounter.IService,
 ) *common2.StackState {
@@ -32,7 +32,7 @@ func CreateStackState(
 		Start: func(
 			conn common2.IInputStreamForStack,
 			stackData common2.IStackCreateData,
-			ToReactorFunc goprotoextra.ToReactorFunc,
+			ToReactorFunc rxgo.NextFunc,
 		) (common2.IInputStreamForStack, error) {
 			if sd, ok := stackData.(*data); ok {
 				return conn, sd.Start(ctx)

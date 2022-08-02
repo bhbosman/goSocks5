@@ -1,13 +1,15 @@
-package providers
+package socksStack
 
 import (
+	"github.com/bhbosman/goCommsDefinitions"
+	"github.com/bhbosman/gocommon/GoFunctionCounter"
+	"github.com/bhbosman/gocommon/Services/interfaces"
 	"github.com/bhbosman/gocommon/messageRouter"
 	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocommon/model"
-	"github.com/bhbosman/gocomms/RxHandlers"
 	"github.com/bhbosman/gocomms/common"
 	"github.com/bhbosman/gomessageblock"
-	"github.com/bhbosman/goprotoextra"
+	"github.com/cskr/pubsub"
 	"github.com/reactivex/rxgo/v2"
 	"go.uber.org/zap"
 	"golang.org/x/net/context"
@@ -17,8 +19,9 @@ import (
 
 type reactor struct {
 	common.BaseConnectionReactor
-	messageRouter *messageRouter.MessageRouter
-	conn          *net.TCPConn
+	messageRouter     *messageRouter.MessageRouter
+	conn              *net.TCPConn
+	goFunctionCounter GoFunctionCounter.IService
 }
 
 func (self *reactor) handleNetTCPConn(message *net.TCPConn) {
@@ -27,12 +30,15 @@ func (self *reactor) handleNetTCPConn(message *net.TCPConn) {
 		"dddd",
 		self.conn,
 		self.CancelCtx,
-		self.ConnectionCancelFunc,
-		RxHandlers.NewDefaultRxNextHandler(
+		self.CancelFunc,
+		goCommsDefinitions.NewDefaultRxNextHandler(
 			func(i interface{}) {
 				if rws, ok := i.(*gomessageblock.ReaderWriter); ok {
-					self.ToConnection(rws)
+					self.OnSendToConnection(rws)
 				}
+			},
+			func(i interface{}) bool {
+				return false
 			},
 			func(err error) {
 				self.ConnectionCancelFunc("sadassa", false, err)
@@ -40,12 +46,15 @@ func (self *reactor) handleNetTCPConn(message *net.TCPConn) {
 			func() {
 				self.CancelFunc()
 			},
+			func() bool {
+				return true
+			},
 		),
 	)
 
 }
 
-func (self *reactor) handleEmptyQueue(message *messages.EmptyQueue) {
+func (self *reactor) handleEmptyQueue(_ *messages.EmptyQueue) {
 }
 
 func (self *reactor) handleRws(message *gomessageblock.ReaderWriter) {
@@ -57,15 +66,22 @@ func newReactor(
 	cancelCtx context.Context,
 	cancelFunc context.CancelFunc,
 	connectionCancelFunc model.ConnectionCancelFunc,
-	userContext interface{}) (*reactor, error) {
+	goFunctionCounter GoFunctionCounter.IService,
+	UniqueReferenceService interfaces.IUniqueReferenceService,
+	PubSub *pubsub.PubSub,
+) (*reactor, error) {
 	result := &reactor{
 		BaseConnectionReactor: common.NewBaseConnectionReactor(
 			logger,
 			cancelCtx,
 			cancelFunc,
 			connectionCancelFunc,
-			userContext),
-		messageRouter: messageRouter.NewMessageRouter(),
+			UniqueReferenceService.Next("ConnectionReactor"),
+			PubSub,
+			goFunctionCounter,
+		),
+		messageRouter:     messageRouter.NewMessageRouter(),
+		goFunctionCounter: goFunctionCounter,
 	}
 	_ = result.messageRouter.Add(result.handleNetTCPConn)
 	_ = result.messageRouter.Add(result.handleEmptyQueue)
@@ -79,16 +95,13 @@ func (self *reactor) Close() error {
 }
 
 func (self *reactor) Init(
-	onSend goprotoextra.ToConnectionFunc,
-	toConnectionReactor goprotoextra.ToReactorFunc,
-	onSendReplacement rxgo.NextFunc,
-	toConnectionReactorReplacement rxgo.NextFunc) (rxgo.NextFunc, rxgo.ErrFunc, rxgo.CompletedFunc, error) {
-
+	onSendToReactor rxgo.NextFunc,
+	onSendToConnection rxgo.NextFunc,
+) (rxgo.NextFunc, rxgo.ErrFunc, rxgo.CompletedFunc, error) {
 	_, _, _, err := self.BaseConnectionReactor.Init(
-		onSend,
-		toConnectionReactor,
-		onSendReplacement,
-		toConnectionReactorReplacement)
+		onSendToReactor,
+		onSendToConnection,
+	)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -98,13 +111,9 @@ func (self *reactor) Init(
 		func(err error) {
 			self.messageRouter.Route(err)
 		}, func() {
-			if self.conn != nil {
-
-				self.conn.Close()
-			}
-
-		}, nil
-
+			self.CancelFunc()
+		},
+		nil
 }
 
 func (self *reactor) Open() error {

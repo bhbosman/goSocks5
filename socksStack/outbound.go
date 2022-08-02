@@ -1,4 +1,4 @@
-package internal
+package socksStack
 
 import (
 	"context"
@@ -13,8 +13,8 @@ import (
 	"go.uber.org/zap"
 )
 
-func Outbound(
-	ConnectionCancelFunc model.ConnectionCancelFunc,
+func outbound(
+	connectionCancelFunc model.ConnectionCancelFunc,
 	logger *zap.Logger,
 	ctx context.Context,
 	goFunctionCounter GoFunctionCounter.IService,
@@ -29,59 +29,40 @@ func Outbound(
 					if sd, ok := stackData.(*data); ok {
 						outboundChannel := make(chan rxgo.Item)
 						var err error
-						onRxSendData, onRxSendError, onRxComplete, err := RxHandlers.All(
+						sd.handler, err = RxHandlers.All2(
 							goCommsDefinitions.Socks5,
 							model.StreamDirectionUnknown,
 							outboundChannel,
 							logger,
 							ctx,
+							true,
 						)
 						if err != nil {
 							return nil, err
 						}
 
-						err = sd.SetOnRxSendData(onRxSendData)
+						outboundStackHandlerInstance, err := newOutboundStackHandler(sd)
 						if err != nil {
 							return nil, err
 						}
 
-						err = sd.setOnRxSendError(onRxSendError)
-						if err != nil {
-							return nil, err
-						}
-
-						err = sd.setOnRxComplete(onRxComplete)
-						if err != nil {
-							return nil, err
-						}
-
-						outboundStackHandler, err := NewOutboundStackHandler(sd)
-						if err != nil {
-							return nil, err
-						}
-
-						rxNextHandler, err := RxHandlers.NewRxNextHandler(
+						rxNextHandler, err := RxHandlers.NewRxNextHandler2(
 							goCommsDefinitions.Socks5,
-							ConnectionCancelFunc,
-							outboundStackHandler,
-							sd.onRxSendData,
-							sd.onRxSendError,
-							sd.onRxComplete,
+							connectionCancelFunc,
+							outboundStackHandlerInstance,
+							sd.handler,
 							logger)
 						if err != nil {
 							return nil, err
 						}
 
-						_ = rxOverride.ForEach(
+						_ = rxOverride.ForEach2(
 							goCommsDefinitions.Socks5,
 							model.StreamDirectionUnknown,
 							obs,
 							ctx,
 							goFunctionCounter,
-							rxNextHandler.OnSendData,
-							rxNextHandler.OnError,
-							rxNextHandler.OnComplete,
-							false,
+							rxNextHandler,
 							opts...)
 						resultObs := rxgo.FromChannel(outboundChannel, opts...)
 						return resultObs, nil

@@ -1,4 +1,4 @@
-package internal
+package socksStack
 
 import (
 	"encoding/binary"
@@ -9,7 +9,6 @@ import (
 	"io"
 	"net"
 	"net/url"
-	"strconv"
 )
 
 type OnStateCallback func(
@@ -17,34 +16,34 @@ type OnStateCallback func(
 	onNextMessage func(interface{}) error,
 ) (canContinue bool, err error)
 
-type InboundStackHandler struct {
+type inboundStackHandler struct {
 	Rw           *gomessageblock.ReaderWriter
 	errorState   error
 	stackData    *data
 	currentState OnStateCallback
 }
 
-func (self *InboundStackHandler) GetAdditionalBytesIncoming() int {
+func (self *inboundStackHandler) GetAdditionalBytesIncoming() int {
 	return 0
 }
 
-func (self *InboundStackHandler) GetAdditionalBytesSend() int {
+func (self *inboundStackHandler) GetAdditionalBytesSend() int {
 	return 0
 }
 
-func (self *InboundStackHandler) ReadMessage(_ interface{}) error {
+func (self *inboundStackHandler) ReadMessage(_ interface{}) (interface{}, bool, error) {
+	return nil, false, nil
+}
+
+func (self *inboundStackHandler) Close() error {
 	return nil
 }
 
-func (self *InboundStackHandler) Close() error {
-	return nil
-}
-
-func (self *InboundStackHandler) OnError(err error) {
+func (self *inboundStackHandler) OnError(err error) {
 	self.errorState = err
 }
 
-func (self *InboundStackHandler) inboundState(
+func (self *inboundStackHandler) inboundState(
 	onNextData func(data []byte) error,
 	onNextMessage func(interface{}) error,
 ) error {
@@ -59,7 +58,7 @@ func (self *InboundStackHandler) inboundState(
 	return nil
 }
 
-func (self *InboundStackHandler) NextReadWriterSize(
+func (self *inboundStackHandler) NextReadWriterSize(
 	rws goprotoextra.ReadWriterSize,
 	onNextRws func(rws goprotoextra.ReadWriterSize) error,
 	onNextMessage func(interface{}) error,
@@ -82,13 +81,13 @@ func (self *InboundStackHandler) NextReadWriterSize(
 	)
 }
 
-func (self *InboundStackHandler) OnComplete() {
+func (self *inboundStackHandler) OnComplete() {
 	if self.errorState == nil {
 		self.errorState = RxHandlers.RxHandlerComplete
 	}
 }
 
-func (self *InboundStackHandler) ReadSocksHeader(next func(byte) OnStateCallback) OnStateCallback {
+func (self *inboundStackHandler) ReadSocksHeader(next func(byte) OnStateCallback) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -112,7 +111,7 @@ func (self *InboundStackHandler) ReadSocksHeader(next func(byte) OnStateCallback
 	}
 }
 
-func (self *InboundStackHandler) ReadMethodCount(version byte) OnStateCallback {
+func (self *inboundStackHandler) ReadMethodCount(version byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -134,7 +133,7 @@ func (self *InboundStackHandler) ReadMethodCount(version byte) OnStateCallback {
 	}
 }
 
-func (self *InboundStackHandler) ReadMethods(version byte, count byte) OnStateCallback {
+func (self *inboundStackHandler) ReadMethods(version byte, count byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -149,14 +148,14 @@ func (self *InboundStackHandler) ReadMethods(version byte, count byte) OnStateCa
 				return false, io.ErrShortBuffer
 			}
 
-			self.currentState = self.SendServerMessage(version, count, b)
+			self.currentState = self.SendServerMessage(version, b)
 			return true, nil
 		}
 		return false, nil
 	}
 }
 
-func (self *InboundStackHandler) SendServerMessage(version byte, count byte, methods []byte) OnStateCallback {
+func (self *inboundStackHandler) SendServerMessage(version byte, methods []byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -166,7 +165,7 @@ func (self *InboundStackHandler) SendServerMessage(version byte, count byte, met
 				b := [2]byte{}
 				b[0] = version
 				b[1] = 0
-				self.stackData.onRxSendData(gomessageblock.NewReaderWriterBlock(b[:]))
+				self.stackData.handler.OnSendData(gomessageblock.NewReaderWriterBlock(b[:]))
 				break
 			}
 		}
@@ -175,7 +174,7 @@ func (self *InboundStackHandler) SendServerMessage(version byte, count byte, met
 	}
 }
 
-func (self *InboundStackHandler) ReadRequestCommand(versionRequired byte) OnStateCallback {
+func (self *inboundStackHandler) ReadRequestCommand(versionRequired byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -192,19 +191,14 @@ func (self *InboundStackHandler) ReadRequestCommand(versionRequired byte) OnStat
 			if b[0] != versionRequired {
 				return false, fmt.Errorf("wrong socks version. expected 5")
 			}
-			self.currentState = self.switchAddressType(b[0], b[1], b[2], b[3])
+			self.currentState = self.switchAddressType(b[0], b[1], b[3])
 			return true, nil
 		}
 		return false, nil
 	}
 }
 
-func (self *InboundStackHandler) switchAddressType(
-	version byte,
-	command byte,
-	reserved byte,
-	addressType byte,
-) OnStateCallback {
+func (self *inboundStackHandler) switchAddressType(version byte, command byte, addressType byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -227,7 +221,7 @@ func (self *InboundStackHandler) switchAddressType(
 	}
 }
 
-func (self *InboundStackHandler) CreateDialer(
+func (self *inboundStackHandler) CreateDialer(
 	version byte,
 	connect *url.URL) OnStateCallback {
 	return func(
@@ -242,24 +236,29 @@ func (self *InboundStackHandler) CreateDialer(
 		_ = onNextMessage(dialer)
 		rws := gomessageblock.NewReaderWriter()
 		enc := encoder{rws: rws}
-		u, _ := url.Parse(fmt.Sprintf("%v://%v", dialer.RemoteAddr().Network(), dialer.RemoteAddr().String()))
-		p, _ := strconv.Atoi(u.Port())
-		reply := Reply{
-			Ver:         version,
-			Rep:         0,
-			Rsv:         0,
-			Type:        1,
-			BindAddress: u.Host,
-			BindPort:    uint16(p),
+		dd := dialer.RemoteAddr()
+		if ipAddress, ok := dd.(*net.TCPAddr); ok {
+			reply := Reply{
+				Ver:         version,
+				Rep:         0,
+				Rsv:         0,
+				Type:        1,
+				BindAddress: ipAddress.IP,
+				BindPort:    uint16(ipAddress.Port),
+			}
+			err := reply.encode(enc)
+			if err != nil {
+				return false, err
+			}
+			self.stackData.handler.OnSendData(rws)
+			self.currentState = self.PassData()
+			return true, nil
 		}
-		reply.encode(enc)
-		self.stackData.onRxSendData(rws)
-		self.currentState = self.PassData()
-		return true, nil
+		return false, fmt.Errorf("invalid type")
 	}
 }
 
-func (self *InboundStackHandler) PassData() OnStateCallback {
+func (self *inboundStackHandler) PassData() OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -278,7 +277,7 @@ func (self *InboundStackHandler) PassData() OnStateCallback {
 	}
 }
 
-func (self *InboundStackHandler) readIpAddressAndPort(version byte) OnStateCallback {
+func (self *inboundStackHandler) readIpAddressAndPort(version byte) OnStateCallback {
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
@@ -299,12 +298,55 @@ func (self *InboundStackHandler) readIpAddressAndPort(version byte) OnStateCallb
 	}
 }
 
-func (self *InboundStackHandler) readDomainNameAndPorts(version byte) OnStateCallback {
+func (self *inboundStackHandler) readDomainNameAndPorts(version byte) OnStateCallback {
+	var state func() (bool, error)
+
+	readDestAddressAndPort := func(l byte) func() (bool, error) {
+		return func() (bool, error) {
+			if self.Rw.Size() >= int(l)+2 {
+				b01 := make([]byte, l, l)
+				_, _ = self.Rw.Read(b01)
+				s := string(b01)
+				b02 := [2]byte{}
+				_, _ = self.Rw.Read(b02[:])
+				portNumber := binary.BigEndian.Uint16(b02[:])
+				urlToConnect, err := url.Parse(fmt.Sprintf("tcp4://%v:%d", s, portNumber))
+				if err != nil {
+					return false, err
+				}
+				self.currentState = self.CreateDialer(version, urlToConnect)
+				return false, nil
+			}
+			return false, nil
+		}
+
+	}
+	readLength := func() (bool, error) {
+		if self.Rw.Size() >= 1 {
+			b := [1]byte{}
+			_, _ = self.Rw.Read(b[:])
+			l := b[0]
+			state = readDestAddressAndPort(l)
+			return true, nil
+
+		}
+		return false, nil
+	}
+
+	state = readLength
 	return func(
 		onNextData func(data []byte) error,
 		onNextMessage func(interface{}) error,
-	) (canContinue bool, err error) {
-		return false, err
+	) (bool, error) {
+		var err error
+		canContinue := true
+		for canContinue {
+			canContinue, err = state()
+			if err != nil {
+				return false, err
+			}
+		}
+		return true, nil
 	}
 }
 
@@ -313,42 +355,34 @@ type Reply struct {
 	Rep         byte
 	Rsv         byte
 	Type        byte
-	BindAddress string
+	BindAddress interface{}
 	BindPort    uint16
 }
 
-func (self Reply) encode(encoder encoder) {
-	encoder.WriteByte(self.Ver)
-	encoder.WriteByte(self.Rep)
-	encoder.WriteByte(self.Rsv)
-	encoder.WriteByte(self.Type)
-	encoder.WriteString(self.BindAddress)
-	encoder.WriteUInt16(self.BindPort)
+func (self Reply) encode(encoder encoder) error {
+	_ = encoder.writeByte(self.Ver)
+	_ = encoder.writeByte(self.Rep)
+	_ = encoder.writeByte(self.Rsv)
+	_ = encoder.writeByte(self.Type)
+	switch v := self.BindAddress.(type) {
+	case string:
+		encoder.writeString(v)
+		break
+	case []byte:
+		encoder.writeBytes(v)
+		break
+	case net.IP:
+		encoder.writeBytes(v)
+		break
+	default:
+		return fmt.Errorf("sdsds")
+	}
+	encoder.writeUInt16(self.BindPort)
+	return nil
 }
 
-type encoder struct {
-	rws *gomessageblock.ReaderWriter
-}
-
-func (self *encoder) WriteByte(ver byte) {
-	b := [1]byte{ver}
-	_, _ = self.rws.Write(b[:])
-}
-
-func (self *encoder) WriteString(value string) {
-	b := []byte(value)
-	self.WriteByte(byte(len(b)))
-	_, _ = self.rws.Write(b)
-}
-
-func (self *encoder) WriteUInt16(port uint16) {
-	b := [2]byte{}
-	binary.BigEndian.PutUint16(b[:], port)
-	_, _ = self.rws.Write(b[:])
-}
-
-func NewInboundStackHandler(stackData *data) RxHandlers.IRxNextStackHandler {
-	result := &InboundStackHandler{
+func newInboundStackHandler(stackData *data) RxHandlers.IRxNextStackHandler {
+	result := &inboundStackHandler{
 		Rw:         gomessageblock.NewReaderWriter(),
 		errorState: nil,
 		stackData:  stackData,

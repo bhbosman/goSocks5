@@ -1,9 +1,8 @@
-package pingPong
+package socksStack
 
 import (
 	"context"
 	"github.com/bhbosman/goCommsDefinitions"
-	"github.com/bhbosman/goSocks5/SocksStack/internal"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocomms/common"
@@ -30,7 +29,7 @@ func ProvideSocks5Stack() fx.Option {
 					return &common.StackDefinition{
 						Name: goCommsDefinitions.Socks5,
 						Inbound: common.NewBoundResultImpl(
-							internal.Inbound(
+							inbound(
 								params.ConnectionCancelFunc,
 								params.Logger,
 								params.Ctx,
@@ -39,7 +38,7 @@ func ProvideSocks5Stack() fx.Option {
 							),
 						),
 						Outbound: common.NewBoundResultImpl(
-							internal.Outbound(
+							outbound(
 								params.ConnectionCancelFunc,
 								params.Logger,
 								params.Ctx,
@@ -47,7 +46,7 @@ func ProvideSocks5Stack() fx.Option {
 								params.Opts...,
 							),
 						),
-						StackState: internal.CreateStackState(
+						StackState: createStackState(
 							params.Ctx,
 							params.GoFunctionCounter,
 						),
