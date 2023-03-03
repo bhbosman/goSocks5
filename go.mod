@@ -3,7 +3,7 @@ module github.com/bhbosman/goSocks5
 go 1.18
 
 require (
-	github.com/bhbosman/goCommsDefinitions v0.0.0-20220801175552-c5aa68065af3
+	github.com/bhbosman/goCommsDefinitions v0.0.0-20230302063431-887458f90947
 	github.com/bhbosman/goCommsNetListener v0.0.0-20220712191421-bfbc514d3011
 	github.com/bhbosman/goFxApp v0.0.0-20220707083540-2141464f4f7c
 	github.com/bhbosman/gocommon v0.0.0-20220802132121-5e81013de07d
