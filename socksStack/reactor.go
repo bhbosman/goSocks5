@@ -31,27 +31,29 @@ func (self *reactor) handleNetTCPConn(message *net.TCPConn) {
 		self.conn,
 		self.CancelCtx,
 		self.CancelFunc,
-		goCommsDefinitions.NewDefaultRxNextHandler(
-			func(i interface{}) {
-				if rws, ok := i.(*gomessageblock.ReaderWriter); ok {
-					self.OnSendToConnection(rws)
-				}
-			},
-			func(i interface{}) bool {
-				return false
-			},
-			func(err error) {
-				self.ConnectionCancelFunc("sadassa", false, err)
-			},
-			func() {
-				self.CancelFunc()
-			},
-			func() bool {
-				return true
-			},
-		),
+		func() goCommsDefinitions.IRxNextHandler {
+			r, _ := goCommsDefinitions.NewDefaultRxNextHandler(
+				func(i interface{}) {
+					if rws, ok := i.(*gomessageblock.ReaderWriter); ok {
+						self.OnSendToConnection(rws)
+					}
+				},
+				func(i interface{}) bool {
+					return false
+				},
+				func(err error) {
+					self.ConnectionCancelFunc("sadassa", false, err)
+				},
+				func() {
+					self.CancelFunc()
+				},
+				func() bool {
+					return true
+				},
+			)
+			return r
+		}(),
 	)
-
 }
 
 func (self *reactor) handleEmptyQueue(_ *messages.EmptyQueue) {

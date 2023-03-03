@@ -3,6 +3,7 @@ package socksStack
 import (
 	"context"
 	"github.com/bhbosman/goCommsDefinitions"
+	"github.com/bhbosman/gocommon"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocommon/rxOverride"
@@ -24,8 +25,8 @@ func outbound(
 				func(
 					stackData common.IStackCreateData,
 					pipeData common.IPipeCreateData,
-					obs rxgo.Observable,
-				) (rxgo.Observable, error) {
+					obs gocommon.IObservable,
+				) (gocommon.IObservable, error) {
 					if sd, ok := stackData.(*data); ok {
 						outboundChannel := make(chan rxgo.Item)
 						var err error

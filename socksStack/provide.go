@@ -25,32 +25,28 @@ func ProvideSocks5Stack() fx.Option {
 						Ctx                  context.Context
 						GoFunctionCounter    GoFunctionCounter.IService
 					},
-				) (*common.StackDefinition, error) {
-					return &common.StackDefinition{
-						Name: goCommsDefinitions.Socks5,
-						Inbound: common.NewBoundResultImpl(
-							inbound(
-								params.ConnectionCancelFunc,
-								params.Logger,
-								params.Ctx,
-								params.GoFunctionCounter,
-								params.Opts...,
-							),
+				) (common.IStackDefinition, error) {
+					return common.NewStackDefinition(
+						goCommsDefinitions.Socks5,
+						inbound(
+							params.ConnectionCancelFunc,
+							params.Logger,
+							params.Ctx,
+							params.GoFunctionCounter,
+							params.Opts...,
 						),
-						Outbound: common.NewBoundResultImpl(
-							outbound(
-								params.ConnectionCancelFunc,
-								params.Logger,
-								params.Ctx,
-								params.GoFunctionCounter,
-								params.Opts...,
-							),
+						outbound(
+							params.ConnectionCancelFunc,
+							params.Logger,
+							params.Ctx,
+							params.GoFunctionCounter,
+							params.Opts...,
 						),
-						StackState: createStackState(
+						createStackState(
 							params.Ctx,
 							params.GoFunctionCounter,
 						),
-					}, nil
+					)
 				},
 			},
 		),
