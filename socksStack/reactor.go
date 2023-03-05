@@ -27,7 +27,6 @@ type reactor struct {
 func (self *reactor) handleNetTCPConn(message *net.TCPConn) {
 	self.conn = message
 	go common.ReadFromIoReader(
-		"dddd",
 		self.conn,
 		self.CancelCtx,
 		self.CancelFunc,
