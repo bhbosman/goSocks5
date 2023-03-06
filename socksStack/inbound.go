@@ -22,7 +22,7 @@ func inbound(
 	opts ...rxgo.Option,
 ) func() (common.IStackBoundDefinition, error) {
 	return func() (common.IStackBoundDefinition, error) {
-		return common.NewBoundDefinition(
+		return common.NewStackBoundDefinition(
 				func(
 					stackData common.IStackCreateData,
 					pipeData common.IPipeCreateData,
