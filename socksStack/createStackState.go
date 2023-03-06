@@ -39,7 +39,7 @@ func createStackState(
 			}
 			return nil, goerrors.InvalidType
 		},
-		Stop: func(stackData interface{}, endParams common2.StackEndStateParams) error {
+		Stop: func(stackData interface{}, _ common2.StackEndStateParams) error {
 			if sd, ok := stackData.(*data); ok {
 				return sd.Stop()
 			}
