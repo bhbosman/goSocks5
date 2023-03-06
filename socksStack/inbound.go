@@ -20,8 +20,8 @@ func inbound(
 	ctx context.Context,
 	goFunctionCounter GoFunctionCounter.IService,
 	opts ...rxgo.Option,
-) func() (common.IStackBoundDefinition, error) {
-	return func() (common.IStackBoundDefinition, error) {
+) func() (common.IStackBoundFactory, error) {
+	return func() (common.IStackBoundFactory, error) {
 		return common.NewStackBoundDefinition(
 				func(
 					stackData common.IStackCreateData,
