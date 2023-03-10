@@ -8,6 +8,7 @@ import (
 	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocomms/common"
+	"github.com/bhbosman/gocomms/intf"
 	"github.com/bhbosman/gomessageblock"
 	"github.com/cskr/pubsub"
 	"github.com/reactivex/rxgo/v2"
@@ -70,7 +71,7 @@ func newReactor(
 	goFunctionCounter GoFunctionCounter.IService,
 	UniqueReferenceService interfaces.IUniqueReferenceService,
 	PubSub *pubsub.PubSub,
-) (*reactor, error) {
+) (intf.IConnectionReactor, error) {
 	result := &reactor{
 		BaseConnectionReactor: common.NewBaseConnectionReactor(
 			logger,
@@ -95,14 +96,8 @@ func (self *reactor) Close() error {
 	return self.BaseConnectionReactor.Close()
 }
 
-func (self *reactor) Init(
-	onSendToReactor rxgo.NextFunc,
-	onSendToConnection rxgo.NextFunc,
-) (rxgo.NextFunc, rxgo.ErrFunc, rxgo.CompletedFunc, error) {
-	_, _, _, err := self.BaseConnectionReactor.Init(
-		onSendToReactor,
-		onSendToConnection,
-	)
+func (self *reactor) Init(params intf.IInitParams) (rxgo.NextFunc, rxgo.ErrFunc, rxgo.CompletedFunc, error) {
+	_, _, _, err := self.BaseConnectionReactor.Init(params)
 	if err != nil {
 		return nil, nil, nil, err
 	}
