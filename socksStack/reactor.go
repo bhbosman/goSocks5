@@ -20,7 +20,7 @@ import (
 
 type reactor struct {
 	common.BaseConnectionReactor
-	messageRouter     *messageRouter.MessageRouter
+	messageRouter     messageRouter.IMessageRouter
 	conn              *net.TCPConn
 	goFunctionCounter GoFunctionCounter.IService
 }
