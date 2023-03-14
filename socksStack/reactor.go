@@ -1,6 +1,7 @@
 package socksStack
 
 import (
+	"context"
 	"github.com/bhbosman/goCommsDefinitions"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/interfaces"
@@ -13,7 +14,6 @@ import (
 	"github.com/cskr/pubsub"
 	"github.com/reactivex/rxgo/v2"
 	"go.uber.org/zap"
-	"golang.org/x/net/context"
 	"io"
 	"net"
 )
