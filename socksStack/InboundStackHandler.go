@@ -3,6 +3,7 @@ package socksStack
 import (
 	"encoding/binary"
 	"fmt"
+	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocomms/RxHandlers"
 	"github.com/bhbosman/gomessageblock"
 	"github.com/bhbosman/goprotoextra"
@@ -21,6 +22,15 @@ type inboundStackHandler struct {
 	errorState   error
 	stackData    *data
 	currentState OnStateCallback
+}
+
+func (self *inboundStackHandler) EmptyQueue() {
+}
+
+func (self *inboundStackHandler) ClearCounters() {
+}
+
+func (self *inboundStackHandler) PublishCounters(counters *model.PublishRxHandlerCounters) {
 }
 
 func (self *inboundStackHandler) GetAdditionalBytesIncoming() int {
