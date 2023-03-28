@@ -64,7 +64,6 @@ replace github.com/bhbosman/gocomms => ../gocomms
 
 //replace github.com/bhbosman/gocommon => ../gocommon
 
-replace github.com/golang/mock => ../gomock
 
 replace github.com/bhbosman/goCommsNetListener => ../goCommsNetListener
 
