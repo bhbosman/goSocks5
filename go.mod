@@ -21,7 +21,7 @@ require github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa // indirec
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20230328152946-8854ec40e34b // indirect
-	github.com/bhbosman/goFxAppManager v0.0.0-20230320053418-125763bdf8d5 // indirect
+	github.com/bhbosman/goFxAppManager v0.0.0-20230328205958-0dcafa6bef73 // indirect
 	github.com/bhbosman/goUi v0.0.0-20230328181044-49e31970d158 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
