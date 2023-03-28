@@ -2,9 +2,9 @@ module github.com/bhbosman/goSocks5
 
 go 1.18
 
-require github.com/bhbosman/goConn v0.0.0-20230317052122-2eec27fd9bc8 // indirect
 
 require (
+github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230313180751-41613a6b3173
 	github.com/bhbosman/goCommsNetListener v0.0.0-20220712191421-bfbc514d3011
 	github.com/bhbosman/goFxApp v0.0.0-20220707083540-2141464f4f7c
