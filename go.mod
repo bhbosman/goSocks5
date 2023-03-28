@@ -12,7 +12,7 @@ require (
 	github.com/bhbosman/gocomms v0.0.0-20220713064628-4df3e595ffd0
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf
 	github.com/bhbosman/gomessageblock v0.0.0-20230308173223-e8144f25444c
-	github.com/bhbosman/goprotoextra v0.0.0-20230309055846-4d9940f8b875
+	github.com/bhbosman/goprotoextra v0.0.2
 	github.com/cskr/pubsub v1.0.2
 	github.com/reactivex/rxgo/v2 v2.5.0
 	go.uber.org/fx v1.19.2
