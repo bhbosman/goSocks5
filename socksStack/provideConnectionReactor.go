@@ -3,8 +3,8 @@ package socksStack
 import (
 	"context"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
-	"github.com/bhbosman/gocommon/Services/interfaces"
 	"github.com/bhbosman/gocommon/model"
+	"github.com/bhbosman/gocommon/services/interfaces"
 	"github.com/bhbosman/gocomms/intf"
 	"github.com/cskr/pubsub"
 	"go.uber.org/fx"
