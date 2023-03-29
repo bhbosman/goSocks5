@@ -6,7 +6,7 @@ require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230320101758-971a50fdbf8c
 	github.com/bhbosman/goCommsNetListener v0.0.0-20230328221032-95cc426246fe
 	github.com/bhbosman/goFxApp v0.0.0-20230328222821-d6fbe28ebdf1
-	github.com/bhbosman/gocommon v0.0.0-20230328230250-805500c476ac
+	github.com/bhbosman/gocommon v0.0.0-20230329101749-40db0f52d859
 	github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf
 	github.com/bhbosman/gomessageblock v0.0.0-20230308173223-e8144f25444c
