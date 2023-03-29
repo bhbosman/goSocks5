@@ -18,7 +18,7 @@ require (
 )
 
 require (
-	github.com/bhbosman/goConn v0.0.0-20230328145648-e6bab0984275 // indirect
+
 	github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0 // indirect
 	github.com/bhbosman/goFxAppManager v0.0.0-20230328221825-d57a6eef05c0 // indirect
 	github.com/bhbosman/goUi v0.0.0-20230328221033-53c557da423d // indirect
@@ -74,4 +74,4 @@ replace github.com/rivo/tview => github.com/bhbosman/tview v0.0.0-20230310100135
 //
 //replace github.com/bhbosman/goprotoextra => ../goprotoextra
 //
-//replace github.com/bhbosman/goConn => ../goConn
+
