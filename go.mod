@@ -4,10 +4,10 @@ go 1.18
 
 require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230320101758-971a50fdbf8c
-	github.com/bhbosman/goCommsNetListener v0.0.0-20220712191421-bfbc514d3011
-	github.com/bhbosman/goFxApp v0.0.0-20220707083540-2141464f4f7c
-	github.com/bhbosman/gocommon v0.0.0-20230328205958-d21444a729d1
-	github.com/bhbosman/gocomms v0.0.0-20220713064628-4df3e595ffd0
+	github.com/bhbosman/goCommsNetListener v0.0.0-20230328221032-95cc426246fe
+	github.com/bhbosman/goFxApp v0.0.0-20230328222821-d6fbe28ebdf1
+	github.com/bhbosman/gocommon v0.0.0-20230329101749-40db0f52d859
+	github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf
 	github.com/bhbosman/gomessageblock v0.0.0-20230308173223-e8144f25444c
 	github.com/bhbosman/goprotoextra v0.0.2
@@ -17,12 +17,11 @@ require (
 	go.uber.org/zap v1.24.0
 )
 
-require github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa // indirect
-
 require (
-	github.com/bhbosman/goConnectionManager v0.0.0-20230328152946-8854ec40e34b // indirect
-	github.com/bhbosman/goFxAppManager v0.0.0-20230328205958-0dcafa6bef73 // indirect
-	github.com/bhbosman/goUi v0.0.0-20230328181044-49e31970d158 // indirect
+
+	github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0 // indirect
+	github.com/bhbosman/goFxAppManager v0.0.0-20230328221825-d57a6eef05c0 // indirect
+	github.com/bhbosman/goUi v0.0.0-20230328221033-53c557da423d // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
@@ -57,32 +56,22 @@ replace github.com/cskr/pubsub => github.com/bhbosman/pubsub v1.0.3-0.2022080220
 
 replace github.com/rivo/tview => github.com/bhbosman/tview v0.0.0-20230310100135-f8b257a85d36
 
-replace github.com/bhbosman/gocomms => ../gocomms
+//replace github.com/bhbosman/gocomms => ../gocomms
+//
+//replace github.com/bhbosman/goCommsNetListener => ../goCommsNetListener
+//
+//replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
+//
+//replace github.com/bhbosman/goFxApp => ../goFxApp
+//
+////replace github.com/bhbosman/goUi => ../goUi
+//
+//replace github.com/bhbosman/goerrors => ../goerrors
+//
+//replace github.com/bhbosman/goFxAppManager => ../goFxAppManager
+//
+//replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
+//
+//replace github.com/bhbosman/goprotoextra => ../goprotoextra
+//
 
-//replace github.com/bhbosman/gocommon => ../gocommon
-
-replace github.com/bhbosman/goCommsNetListener => ../goCommsNetListener
-
-replace github.com/bhbosman/goCommsSshListener => ../goCommsSshListener
-
-replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
-
-replace github.com/bhbosman/goCommsStacks => ../goCommsStacks
-
-replace github.com/bhbosman/goCommsSSHProtocols => ../goCommsSSHProtocols
-
-replace github.com/bhbosman/goCommsSSH => ../goCommsSSH
-
-replace github.com/bhbosman/goFxApp => ../goFxApp
-
-//replace github.com/bhbosman/goUi => ../goUi
-
-replace github.com/bhbosman/goerrors => ../goerrors
-
-replace github.com/bhbosman/goFxAppManager => ../goFxAppManager
-
-replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
-
-replace github.com/bhbosman/goprotoextra => ../goprotoextra
-
-replace github.com/bhbosman/goConn => ../goConn
