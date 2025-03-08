@@ -20,7 +20,7 @@ require (
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20250308054322-587c786bedb0 // indirect
 	github.com/bhbosman/goFxAppManager v0.0.0-20250308052839-63033ea503a7 // indirect
-	github.com/bhbosman/goUi v0.0.0-20250308064519-26f29e163722 // indirect
+	github.com/bhbosman/goUi v0.0.0-20250308071736-0cc76a4d2dbf // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
