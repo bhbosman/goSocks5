@@ -43,6 +43,8 @@ github.com/bhbosman/goConnectionManager v0.0.0-20250308162041-c3d88e4a7878 h1:Av
 github.com/bhbosman/goConnectionManager v0.0.0-20250308162041-c3d88e4a7878/go.mod h1:rTgsXwIqcz2lmeksaTaDhkY692AJTrfZ+2/1h5o+N84=
 github.com/bhbosman/goConnectionManager v0.0.0-20250308194756-b3c21d488492 h1:DPlP+NR2dn33vRUpT1fyoLBMp3s73qBfrc7gijFR6zs=
 github.com/bhbosman/goConnectionManager v0.0.0-20250308194756-b3c21d488492/go.mod h1:iFbggy9oqgzG5lBZ+P8/rVflhcPHn0GaAi3yCunMyvg=
+github.com/bhbosman/goConnectionManager v0.0.0-20250308201033-1df6054ada09 h1:N+6F2Xw4/tSHSDhWDA2Csbmq0TF2u2fVU0E52Q7UaU0=
+github.com/bhbosman/goConnectionManager v0.0.0-20250308201033-1df6054ada09/go.mod h1:INP4El5vgMDdRSazlBO+i0eta49rK0ushLNtwTzSCD0=
 github.com/bhbosman/goFxApp v0.0.0-20250307230611-15e28b32dfad h1:R8oM0VaK5SwV/GhQfk6xiWEhovAIbLskpEqIzSLDB1Q=
 github.com/bhbosman/goFxApp v0.0.0-20250307230611-15e28b32dfad/go.mod h1:a4YHhLtYHS9cRj4Nd7GFzWpl7r6QzYP5Y4swB9QURoI=
 github.com/bhbosman/goFxApp v0.0.0-20250308052840-c690d60e479d h1:NxjdYaZhF0frCloGyIaR6T291gYLDKpdmvW5zksakHw=
@@ -57,6 +59,8 @@ github.com/bhbosman/goFxApp v0.0.0-20250308154822-0732d20055c3 h1:qCoQwbmIfDcYMz
 github.com/bhbosman/goFxApp v0.0.0-20250308154822-0732d20055c3/go.mod h1:SFFo8ji40tAr1v+N+tPS3ExR+ISzeHCpPIO746XTR9E=
 github.com/bhbosman/goFxApp v0.0.0-20250308162224-38e18cab1c9b h1:Xvd0XFUtQs6fXn296MlfJJZtQVP7O4p9mvafXZLbfyk=
 github.com/bhbosman/goFxApp v0.0.0-20250308162224-38e18cab1c9b/go.mod h1:gpDhQnaG3GjBLTFu0j02DRX3LJPLsWobyNwI1vXb0Vc=
+github.com/bhbosman/goFxApp v0.0.0-20250308195902-4400a1bd1849 h1:qsFAc19RnXhidONK3ofkVkxjmW/R6CbwEV/m7b7TwgA=
+github.com/bhbosman/goFxApp v0.0.0-20250308195902-4400a1bd1849/go.mod h1:8PPYXL73Vs5Vlwyi4JoC8++1audlN3F1YiiNW8USgGk=
 github.com/bhbosman/goFxAppManager v0.0.0-20250307225418-ef314d0a9319 h1:kP6SYfU78d/E47g/Z+qLud6iUMm6YyWqe6rjoerOjx0=
 github.com/bhbosman/goFxAppManager v0.0.0-20250307225418-ef314d0a9319/go.mod h1:ycupVtM9tSyMp0z+ak3mDfxs7N2L8ALyjd5+VdfrRSs=
 github.com/bhbosman/goFxAppManager v0.0.0-20250308052839-63033ea503a7 h1:26wgm1oO533gmNz/iaqnLif6nq5NS5xeMjT824rv1PQ=
@@ -71,6 +75,8 @@ github.com/bhbosman/goFxAppManager v0.0.0-20250308162229-1292fdd07fc0 h1:RuIV4Mx
 github.com/bhbosman/goFxAppManager v0.0.0-20250308162229-1292fdd07fc0/go.mod h1:S7X5ohnYvimXkHR3pbCeqoS2BH0lbL9hNjNW/hdz8qg=
 github.com/bhbosman/goFxAppManager v0.0.0-20250308192215-e35e337e2f4e h1:ujOQ7T01LCruMlkmNOKvChxjTH2APeazx64/BMNn/AA=
 github.com/bhbosman/goFxAppManager v0.0.0-20250308192215-e35e337e2f4e/go.mod h1:AQYfa/uPA0OfPteZRx5p7NRkgIEhJ6ukg3PIEnBvEFs=
+github.com/bhbosman/goFxAppManager v0.0.0-20250308195907-f3af604d443a h1:CamRlJFJCCjxO3ZZA2TwoAwW835tPwBnvQgbIDay5E0=
+github.com/bhbosman/goFxAppManager v0.0.0-20250308195907-f3af604d443a/go.mod h1:yJO6JVS7gDskW1DWSdpUOL8GIkRXsbsuJ2EVoa1FI5k=
 github.com/bhbosman/goUi v0.0.0-20250308052840-a0e5fd7e5f88 h1:Dyqc31wVVUcDJd0LMXj7l4sNt98wCPmrV7n3rWuYOJc=
 github.com/bhbosman/goUi v0.0.0-20250308052840-a0e5fd7e5f88/go.mod h1:3FskHyMUG9BmfVvg+rAOKsJbjVrJqrlBnC3Cr6uER3E=
 github.com/bhbosman/goUi v0.0.0-20250308064519-26f29e163722 h1:dZCnL1PLX8x2WBzGirFUPhzSPi3ndOxHggfuXwbKOWk=
@@ -95,6 +101,8 @@ github.com/bhbosman/goUi v0.0.0-20250308192106-f0dba2b1ada7 h1:TjaFwfhgJrIlkULWH
 github.com/bhbosman/goUi v0.0.0-20250308192106-f0dba2b1ada7/go.mod h1:4npkyOdvPaIf3JZHD1C8VntmWlUXRh6sMgAu+l8uUyU=
 github.com/bhbosman/goUi v0.0.0-20250308194827-3465482d7c6b h1:KKdeMYlRS0d9agTti3R066pPJgMIyRiLjyNzEmDO35A=
 github.com/bhbosman/goUi v0.0.0-20250308194827-3465482d7c6b/go.mod h1:fahvqvNfQKJKbhKjy+m8igIGeadfyCT2JlR44+d/RN4=
+github.com/bhbosman/goUi v0.0.0-20250308200805-7b64bf0ddd19 h1:0fWValFXPNbCHcLn6o7T0hRqGSKf3LHFYhaCSZppaWs=
+github.com/bhbosman/goUi v0.0.0-20250308200805-7b64bf0ddd19/go.mod h1:4IniVEpuI/SfKJpx1aIKGL60iPB4u3GXuqv8OKgD5Qg=
 github.com/bhbosman/gocommon v0.0.0-20250308052839-0ebeb121f996 h1:J4LPhDOOJ/tIJscYU6vNy2V1CzVflIHTJMYdN9gtGqg=
 github.com/bhbosman/gocommon v0.0.0-20250308052839-0ebeb121f996/go.mod h1:PcUe1UZjlmyuDrh2cEzNAgi+BQEV10LWktEL2C9BRS0=
 github.com/bhbosman/gocommon v0.0.0-20250308071735-43b385b00819 h1:B+7lAu+nnm9PI6M2ltgAD10Ay1H6StjvFEIVmmgZx4U=
@@ -125,6 +133,8 @@ github.com/bhbosman/gocomms v0.0.0-20250308162131-934dbda8372b h1:owNt0vfsZi+xnT
 github.com/bhbosman/gocomms v0.0.0-20250308162131-934dbda8372b/go.mod h1:i+J1L5S+TMb5gRSU69C6OmyZm8WIg02BAco6rvSQ6dY=
 github.com/bhbosman/gocomms v0.0.0-20250308192115-8af5b0178806 h1:HcTk5wsJ1EMjQnTGeyUHdkVYmGoAkRSAgfWsPVL69wI=
 github.com/bhbosman/gocomms v0.0.0-20250308192115-8af5b0178806/go.mod h1:xpzaapWoqjHdxOswGyQbMNV/7G4GIMuBuHbmvPLf0qI=
+github.com/bhbosman/gocomms v0.0.0-20250308201104-6179c9241408 h1:mz7EBYDHiserTpni223QghbMv6ZoB18HLZXA/ZQthwk=
+github.com/bhbosman/gocomms v0.0.0-20250308201104-6179c9241408/go.mod h1:8pSgX+f5NhYUC3BTCoOlzn7dubBirqv/x/ZCF+eOHM0=
 github.com/bhbosman/goerrors v0.0.0-20250307194237-312d070c8e38 h1:3jX77BrDYvQ4xiAQkat+N47OZoKECB9t27fQQfpqGRk=
 github.com/bhbosman/goerrors v0.0.0-20250307194237-312d070c8e38/go.mod h1:2aeMPIIYjD7+5AmN1yaV/oAqCaExRDcl7SN+/zFLpew=
 github.com/bhbosman/gomessageblock v0.0.0-20250307141417-ab783e8e2eba h1:BcXupDmD6uRluJ1whSXNXMLaDV1HtBlFrwa8OsZgT8E=
@@ -143,6 +153,7 @@ github.com/bhbosman/pubsub v1.0.3-0.20250308124829-e5731aa33222 h1:cHtirgrswJP8g
 github.com/bhbosman/pubsub v1.0.3-0.20250308124829-e5731aa33222/go.mod h1:k9O2AJEIxJfyjM6xKczmuBumvRC+Pee76jW4Ir0+nTU=
 github.com/bhbosman/pubsub v1.0.3-0.20250308162024-50f212a35484 h1:7L9tOPXEY7T3OCI5uNszNWJ2GqfJAREkZEw77Ki6VZA=
 github.com/bhbosman/pubsub v1.0.3-0.20250308162024-50f212a35484/go.mod h1:/cxRJx2sbd/mII/T3GTLM/2EUisAfq6Zy8qb9lBqpRk=
+github.com/bhbosman/pubsub v1.0.3-0.20250308211253-e47ee222bb15 h1:YAp8HXZRg3cmEvlLz0GgKFnkYNWe6BUA8J+qsoj6MeQ=
 github.com/bhbosman/pubsub v1.0.3-0.20250308211253-e47ee222bb15/go.mod h1:/cxRJx2sbd/mII/T3GTLM/2EUisAfq6Zy8qb9lBqpRk=
 github.com/bhbosman/tcell/v2 v2.5.2-0.20220624055704-f9a9454fab5b h1:mfhKWKkAnnEpjWYcFHR5B3G7VqYSaOJJ5SENyky5nOw=
 github.com/bhbosman/tcell/v2 v2.5.2-0.20220624055704-f9a9454fab5b/go.mod h1:wSkrPaXoiIWZqW/g7Px4xc79di6FTcpB8tvaKJ6uGBo=
