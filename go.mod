@@ -5,8 +5,8 @@ go 1.24.0
 require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20250308144130-64993b60920c
 	github.com/bhbosman/goCommsNetListener v0.0.0-20250308154802-78cc2d086d08
-	github.com/bhbosman/goFxApp v0.0.0-20250308145557-3cf179139aee
-	github.com/bhbosman/gocommon v0.0.0-20250308150148-56b7e6e14bff
+	github.com/bhbosman/goFxApp v0.0.0-20250308154822-0732d20055c3
+	github.com/bhbosman/gocommon v0.0.0-20250308155359-4baa9bec452e
 	github.com/bhbosman/gocomms v0.0.0-20250308152759-52892cbe374f
 	github.com/bhbosman/goerrors v0.0.0-20250307194237-312d070c8e38
 	github.com/bhbosman/gomessageblock v0.0.0-20250308073733-0b3daca12e3a
@@ -19,7 +19,7 @@ require (
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20250308150558-5d463bc5c9e3 // indirect
-	github.com/bhbosman/goFxAppManager v0.0.0-20250308140124-9230c32fe2ee // indirect
+	github.com/bhbosman/goFxAppManager v0.0.0-20250308154830-a52fe01a02cc // indirect
 	github.com/bhbosman/goUi v0.0.0-20250308152754-9da2082d1fbd // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
