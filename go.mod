@@ -3,7 +3,7 @@ module github.com/bhbosman/goSocks5
 go 1.24.0
 
 require (
-	github.com/bhbosman/goCommsDefinitions v0.0.0-20250308074916-3e7c0d32b971
+	github.com/bhbosman/goCommsDefinitions v0.0.0-20250308144130-64993b60920c
 	github.com/bhbosman/goCommsNetListener v0.0.0-20250308122653-28d9e53d4343
 	github.com/bhbosman/goFxApp v0.0.0-20250308140120-240d765e819d
 	github.com/bhbosman/gocommon v0.0.0-20250308131803-28622f55deb1
@@ -18,9 +18,9 @@ require (
 )
 
 require (
-	github.com/bhbosman/goConnectionManager v0.0.0-20250308133907-06eddcd798f6 // indirect
+	github.com/bhbosman/goConnectionManager v0.0.0-20250308145438-ea83361668a5 // indirect
 	github.com/bhbosman/goFxAppManager v0.0.0-20250308140124-9230c32fe2ee // indirect
-	github.com/bhbosman/goUi v0.0.0-20250308132651-2a5e82ef72b0 // indirect
+	github.com/bhbosman/goUi v0.0.0-20250308145459-134c11444111 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
