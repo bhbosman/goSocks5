@@ -7,7 +7,7 @@ require (
 	github.com/bhbosman/goCommsNetListener v0.0.0-20250308122653-28d9e53d4343
 	github.com/bhbosman/goFxApp v0.0.0-20250308072343-1987095b450b
 	github.com/bhbosman/gocommon v0.0.0-20250308131803-28622f55deb1
-	github.com/bhbosman/gocomms v0.0.0-20250308122654-329e339db0e0
+	github.com/bhbosman/gocomms v0.0.0-20250308133812-cb1afb4044ed
 	github.com/bhbosman/goerrors v0.0.0-20250307194237-312d070c8e38
 	github.com/bhbosman/gomessageblock v0.0.0-20250308073733-0b3daca12e3a
 	github.com/bhbosman/goprotoextra v0.0.2
