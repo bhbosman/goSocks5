@@ -19,7 +19,7 @@ require (
 	go.uber.org/zap v1.27.0
 )
 
-require github.com/bhbosman/goConn v0.0.0-20250307235008-177f4ffe3521 // indirect
+
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20250307224538-a79ceb218fd0 // indirect
